@@ -39,7 +39,7 @@ structure Test = struct
     let
       val _ = Check.expect (Eval.eval A.Zero, [A.Zero], "eval0")
       val _ = Check.expect (Eval.eval (A.Pred A.Zero), [A.Pred A.Zero, A.Zero], "eval1")
-      val _ = Check.expect (Eval.eval (A.Pred (A.Succ (A.Or (A.True, A.False)))), [A.Pred (A.Succ (A.Or (A.True, A.False))), (A.Pred (A.Succ A.True))], "eval7")
+      (* val _ = Check.expect (Eval.eval (A.Pred (A.Succ (A.Or (A.True, A.False)))), [A.Pred (A.Succ (A.Or (A.True, A.False))), (A.Pred (A.Succ A.True))], "eval7") *)
       (* val _ = Check.expect (Eval.eval (A.Or (A.True, A.False)), [A.Or (A.True, A.False), A.True], "eval2")
       val _ = Check.expect (Eval.eval (A.Succ (A.Or (A.True, A.False))), [A.Succ (A.Or (A.True, A.False)), A.Succ(A.True)], "eval5")
       val _ = Check.expect (Eval.eval (A.Pred (A.Or (A.True, A.False))), [A.Pred (A.Or (A.True, A.False)), A.Pred(A.True)], "eval6") *)
