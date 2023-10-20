@@ -62,7 +62,9 @@ structure Test = struct
       val _ = Check.expect (Eval.result D.Zero, Eval.Value D.Zero, "eval0")
       (* write more eval tests here *)
       (* val _ = Check.expect (Eval.result (D.First (D.Pair(D.Zero, D.Add (D.Succ(D.Zero))))), Eval.Stuck (D.First (D.Succ(D.Zero))), "eval1#[1+0]") *)
-
+      val _ = Check.expect (Eval.result (D.Second (D.Pair(D.Zero, D.Zero))), Eval.Value(D.Zero), "eval1")
+      val _ = Check.expect (Eval.result (D.First (D.Pair(D.Succ(D.Zero), D.Zero))), Eval.Value(D.Succ(D.Zero)), "eval2")
+      val _ = Check.expect (Eval.result (D.First (D.Pair(D.Add((D.Nat 12), D.Zero), D.Zero))), Eval.Value((D.Nat 12)), "eval3")
     in
       TextIO.print "eval tests done\n"
     end
