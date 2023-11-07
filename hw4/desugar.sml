@@ -25,29 +25,31 @@ end = struct
   fun desugar term =
     let
       val tru = U.Lam("t", U.Lam("f", U.Var("t")))
+
       val fls = U.Lam("t", U.Lam("f", U.Var("f")))
 
-      (* val pair = U.Lam("f", U.Lam("s", U.Lam("b", U.App(U.Var("b"), U.App(U.Var("f"), U.Var("s")))))) *)
       val pair = U.Lam("f", U.Lam("s", U.Lam("b", 
                                               U.App(U.App(U.Var("b"), U.Var("f")),
                                                     U.Var("s")))))
+
       val fst = U.Lam("p", 
                       U.App(U.Var("p"), 
                             U.Lam("t", U.Lam("f", U.Var("t")))))
+
       val snd = U.Lam("p", 
                       U.App(U.Var("p"), 
                             U.Lam("t", U.Lam("f", U.Var("f")))))
+
       val plus = U.Lam("m", U.Lam("n", U.Lam("s", U.Lam("z", 
                                                         U.App(U.App(U.Var("m"), U.Var("s")), 
                                                               U.App(U.App(U.Var("n"), 
                                                                           U.Var("s")), 
                                                                     U.Var("z")))))))
+
       val zz = U.App(U.App(pair,
                           U.Lam("s", U.Lam("z", U.Var("z")))),
                     U.Lam("s", U.Lam("z", U.Var("z"))))
-        (* pair, 
-        U.App(U.Lam("s", U.Lam("z", U.Var("z"))), 
-              U.Lam("s", U.Lam("z", U.Var("z")))) *)
+
       val ss = U.Lam("p", U.App(U.App(pair,
                                       U.App(snd, 
                                             U.Var("p"))),
@@ -55,30 +57,26 @@ end = struct
                                             U.Lam("s", U.Lam("z", U.App(U.Var("s"),
                                                                        U.Var("z"))))),
                                       U.App(snd, U.Var("p")))))
-          (* pair, 
-          U.App(U.App(snd, U.Var("p")),
-                U.App(plus, (U.App(
-                              U.Lam("s", U.Lam("z", U.App(U.Var("s"), U.Var("z")))),
-                              U.App(snd, U.Var("p")))))))
-      )  *)
+
       val prd = U.Lam("m", U.App(fst, 
                                 U.App(U.App(U.Var("m"), 
                                             ss), 
                                       zz)))
-      (* val prd = U.Lam("m", U.App(fst, U.App(U.Var("m"), U.App(ss, zz)))) *)
-      (* val minus = U.Lam("m", U.Lam("n", U.App(U.Var("n"), U.App(prd, U.Var("m"))))) *)
+
       val minus = U.Lam("m", U.Lam("n", U.App(U.App(U.Var("n"),
                                                     prd),
                                               U.Var("m"))))
+
       val times = U.Lam("m", U.Lam("n", U.App(U.App(U.Var("m"),
                                                     U.App(plus, U.Var("n"))),
                                               U.Lam("s", U.Lam("z", U.Var("z"))))))                                    
+
       val power = U.Lam("m", U.Lam("n", U.App(U.App(U.Var("n"), 
                                                     U.App(times, 
                                                           U.Var("m"))),
                                               U.Lam("s", U.Lam("z", U.App(U.Var("s"), 
                                                                           U.Var("z")))))))
-      (* val iszro = U.Lam("m", U.App(U.Var("m"), U.App(U.Lam("x", fls), tru))) *)
+
       val iszro = U.Lam("m", U.App(U.App(U.Var("m"),
                                           U.Lam("x", U.Lam("t", U.Lam("f", U.Var("f"))))),
                                     U.Lam("t", U.Lam("f", U.Var("t")))))
@@ -90,9 +88,11 @@ end = struct
       val also = U.Lam("b", U.Lam("c", U.App(U.App(U.Var("b"),
                                                   U.Var("c")),
                                             fls)))                        
+
       val other = U.Lam("b", U.Lam("c", U.App(U.App(U.Var("b"),
                                                   tru),
                                             U.Var("c"))))
+
       val xor = U.Lam("b", U.Lam("c", U.App(U.App(U.Var("b"),
                                                   U.App(not, 
                                                         U.Var("c"))),
@@ -136,7 +136,6 @@ end = struct
                                                             U.Var("m")),
                                                       U.Var("n")))))
       
-      (* val test = U.Lam("l", U.Lam("m", U.Lam("n", U.App(U.Var("l"), U.App(U.Var("m"), U.Var("n")))))) *)
       val test = U.Lam("l", U.Lam("m", U.Lam("n", U.App(U.App(U.Var("l"),
                                                               U.Var("m")),
                                                         U.Var("n")))))
