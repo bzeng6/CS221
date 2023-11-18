@@ -45,8 +45,6 @@ end = struct
       | _ => tp
     )
 
-
-  (* fun check _ = raise Fail "todo: RecordCheck.check" *)
   fun check term = 
     (case term of
         L.Record([]) => raise Fail "not a valid record, empty"
@@ -59,10 +57,6 @@ end = struct
             else 
               raise Fail "check output not same as input 3" 
           end
-          (* (case check(t1) of
-              t1 => term
-            (* | _ => raise Fail "fail should have been raised earlier" *)
-          ) *)
       | L.Record((l1, t1)::(l2, t2)::rest) => 
           if l1 = l2 then
             raise Fail "not a valid record, repeated labels"              
@@ -91,31 +85,3 @@ end = struct
     )
 
 end
-
-
-(* | L.Record((l1, t1)::rest) =>
-      (case rest of
-          ((l2, t2)::rest') =>
-            (case rest' of
-                ((l3, t3)::rest'') =>
-                  if l1 != l2 then
-                    (case check(L.Record((l1, t1)::rest')) of
-                        L.Record((l1, t1)::rest') => c
-                    )
-                    
-                  else
-                    raise Fail "not a valid record, repeated labels"
-              | _ => 
-                (case check(t2) of
-                    t2 => term
-                )
-            )
-            
-        | NONE => 
-          (case check(t1) of
-              t1 => check(L.Record(rest))
-            | _ => raise Fail "not a valid record, repeated labels"
-          )
-        
-        
-      ) *)

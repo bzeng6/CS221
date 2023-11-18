@@ -5,7 +5,6 @@ val inLw : (string * Type.typ) * ((string * Type.typ) list) -> bool
 val width : Type.typ * Type.typ -> bool
 val inLd : (string * Type.typ) * ((string * Type.typ) list) -> (string * Type.typ) option
 val getMatches : Type.typ * Type.typ -> (string * Type.typ) list
-(* val perm : Type.typ * Type.typ -> bool *)
 val typeof_helper : (TypeEnv.env * L23RR.term) -> Type.typ
 
 (* return true if the first type is a subtype of the second *)
@@ -76,10 +75,7 @@ end = struct
           )
       | _ => []
     )
-
-  (* fun perm (t1, t2) = raise Fail "todo" *)
 		  
-  (* fun subty _ = raise Fail "todo: TypeCheck.subty" *)
   fun subty (t1, t2) = 
     (case t1 of
         T.Record((t1_l1,t1_ty1)::t1_rest) => 
@@ -145,7 +141,7 @@ end = struct
     else if subty(t2, t1) then
       SOME t1
     else 
-      raise Fail "commonSupertype: no supertype found"
+      NONE
 
   
   fun typeof_helper (gamma, term) = 
@@ -277,100 +273,6 @@ end = struct
           ) *)
     )
 
-  (* fun typeof _ = raise Fail "todo: TypeCheck.typeof" *)
   fun typeof (term) = typeof_helper(E.empty, term)
 	    
-end
-
-
-  (* fun inLd ((t1_l1,t1_ty1)::t1_rest, (t2_l1,t2_ty1)::t2_rest) = 
-    case  *)
-    (* let
-      val inL1 = inLd_helper((t1_l1,t1_ty1), ((t2_l1,t2_ty1)::t2_rest))
-      val inL2 = inLd_helper((t2_l1,t2_ty1), ((t1_l1,t1_ty1)::t1_rest))
-    in
-      if inL1 = 
-    end *)
-
-  (* fun getMatches (t1, t2) = 
-    (case t1 of
-        T.Record([]) =>
-          (case t2 of
-              T.Record([]) => true
-            | _ => false
-          )
-      | T.Record((t1_l1, t1_ty1)::t1_rest) =>
-          (case t2 of
-              T.Record((t2_l1,t2_ty1)::t2_rest) =>
-                (case inLd((t1_l1,t1_ty1), ((t2_l1,t2_ty1)::t2_rest)) of
-                    SOME(t2_return) =>
-
-                )
-                (* if inLd ((t1_l1, t1_ty1), t2_lst) then
-                  getMatches(T.Record(t1_rest), t2)
-                else
-                  false *)
-            | _ => raise Fail "getMatches: should not take in non-record type"
-          )
-      | _ => raise Fail "getMatches: should not take in non-record type"
-    ) *)
-
-
-    (* (case t1 of
-        T.Record((t1_l1,t1_ty1)::t1_rest) =>  
-          (case t2 of
-              T.Record((t2_l1,t2_ty1)::t2_rest) =>
-                if t1_ty1 = t2_ty1 andalso t1_l1 = t2_l1 then
-                  width(T.Record(t1_rest), T.Record(t2_rest))
-                else
-                  width(T.Record(t1, T.Record(t2_rest)))
-            | T.Record([]) => true
-            | _ => raise Fail "width: should not take in non-record type" 
-          )
-      | T.Record([]) => 
-          (case t2 of
-              T.Record((_,_)::rest) => false
-            | T.Record([]) => true
-            | _ => raise Fail "width: should not take in non-record type"
-          )
-      | T.Function(t1_ty1, t1_ty2) =>
-      | _ => raise Fail "width: should not take in non-record type"
-    ) *)
-
-
-                      (* (case inLd((t1_l1,t1_ty1), ((t2_l1,t2_ty1)::t2_rest)) of 
-                        (* inLd((t2_l1,t2_ty1), ((t1_l1,t1_ty1)::t1_rest)) of *)
-                      SOME(t2_return) => 
-                        if subty(t1_ty1, t2_return) then
-                          (case t1_rest of
-                              [] => 
-                                (case t2_rest of
-                                    [] => true
-                                  | _ => false
-                                )
-                            | (t1_l2,t1_ty2)::t1_rest' => 
-                                inLd((t1_l2,t1_ty2), ((t2_l1,t2_ty1)::t2_rest))
-                          )
-                        else false
-                        (* (case inLd((t2_l1,t2_ty1), ((t1_l1,t1_ty1)::t1_rest)) of
-                            SOME(t1_return) =>
-                              subty(t1_ty1, t2_return) andalso subty(t2_ty1, t1_return)
-                          | _ => false
-                        ) *)
-                    | _ => false
-                  ) *)
-
-
-                 (* if width(t1, t2) then true
-                else if isLd((t1_l1,t1_ty1), ((t2_l1, t2_ty1)::t2_rest))
-                (* else if perm(t1, t2) then true *)
-                else false *)     
-
-                    (* (case t2_matches of
-                        [] => false (* bc t2 never empty in this branch *)
-                      | _ => 
-                        (case t1_matches of
-                            [] => false
-                          | _ => depth((t1_l1,t1_ty1)::t1_rest, t2_matches) andalso depth(t1_matches, (t2_l1,t2_ty1)::t2_rest)
-                        )
-                    ) *)                
+end            

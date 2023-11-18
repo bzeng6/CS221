@@ -11,27 +11,6 @@ end = struct
 (* That is, we shouldn't have them when we get to evaluation. *)
 		  
 
-  (* datatype term
-    = Int of int
-    | True
-    | False
-    | Unit
-    | Var of string
-    | Lam of string * Type.typ * term
-    | App of term * term
-    | Fix of term
-    | Let of string * term * term
-    | Cond of term * term * term
-    | Add of term * term
-    | Sub of term * term
-    | Mul of term * term
-    | Eq of term * term
-    | LessThan of term * term
-    | Not of term
-    | Record of (string * term) list
-    | Select of string * term *)
-
-  (* fun subst (x, s, t) = raise Fail "todo: Subst.subst" *)
   (* subst(x,s,t) means "rewrite x to s in t" *)
   fun subst (x, s, t) =
     (case t of
@@ -71,33 +50,6 @@ end = struct
             L.Record(subrec(lst))
           end
       | L.Select(l, t1) => L.Select(l, subst(x, s, t1))
-      (* | _ => raise Fail "todo" *)
     )
-
-    (* U.App (tA, tB) => U.App (subst (x, t2, tA), subst (x, t2, tB))
-        | U.Lam (y, tB) =>
-            if x = y then U.Lam (y, tB)
-            else if S.mem (y, fv t2) then subst (x, t2, fresh (y, tB))
-            else U.Lam (y, subst (x, t2, tB))) *)
-    (* (case t of
-        ULC.Var(y) =>
-          if x = y then 
-            s
-          else 
-            ULC.Var(y)
-      | ULC.App(t1, t2) => ULC.App(subst(x, s, t1), subst(x, s, t2))
-      | ULC.Lam(y, t1) =>
-          if x = y then
-            ULC.Lam(x, t1)
-          else
-            if VarSet.mem(y, fv(s)) then
-              let
-                val fresh_var = Fresh.var()
-              in
-                subst(x, s, ULC.Lam(fresh_var, subst(y, ULC.Var(fresh_var), t1)))
-              end
-            else
-              ULC.Lam(y, subst(x, s, t1))
-    ) *)
 
 end
